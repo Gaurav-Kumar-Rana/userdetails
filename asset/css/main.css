@@ -167,8 +167,8 @@ ul {
 
 @media (max-width: 960px) {
   .userLogo {
-    min-height: 30px;
-    min-width: 30px; } }
+    min-height: 30px !important;
+    min-width: 30px !important; } }
 
 @keyframes fadeIn {
   from {
