@@ -1,0 +1,12 @@
+{
+    "header":[
+        {"name":"Personal","status":true,"icon":"icon-credit-card","color":"teal"},
+        {"name":"Credit card","status":true,"icon":"icon-personal","color":"blueviolet"}
+    ],
+    "body_conatiner":{
+        "profile_details":{
+            "name":"Gaurav Rana",
+            "profile_title":"Front end Developer"
+        }
+    }
+}

@@ -1,0 +1,62 @@
+$root-image-path: '/asset/images';
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-image: url($root-image-path + "/bg.png");
+}
+ul{list-style: none;padding:0}
+@import './icons.css';
+@import './App';
+
+.App{
+  overflow: hidden;
+  position: relative
+}
+
+.menuList{
+  & > div{
+    transition: 0.5s all;
+    border: 0px solid transparent;
+    &:hover,.active{
+      border-left:3px solid gray;
+    }
+  }
+}
+
+@media (min-width:960px) {
+  .left-menu-opened + main{
+    padding-left:15vw;
+  }
+  .left-menu-closed + main{
+    padding-left:0;
+  }
+  .left-menu-opened + main + footer{
+    padding-left:15vw;
+  }
+  .left-menu-closed + main + footer{
+    padding-left:0;
+  }
+}
+@media (max-width:960px) {
+  .userLogo {
+    min-height: 30px;
+    min-width: 30px;
+  }
+}
+
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.page-container {
+  opacity:0;  
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+}
+

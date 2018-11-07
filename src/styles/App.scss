@@ -1,0 +1,118 @@
+.text-left{
+  text-align: left;
+}
+.sidebar-closebtn{
+  margin: 0px !important;
+  margin-left: calc(100% - 49px) !important;
+}
+.round-shape{
+  border-radius: 50%;
+}
+.padding0{
+  padding:0px !important;
+}
+.paddingLR0{
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+.paddingLR0{
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+.paddingLR16{
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+.margin0{
+  margin:0px !important;
+}
+.marginLR16{
+  margin-left:16px !important;
+  margin-right:16px !important;
+}
+.fullWidth{
+  width: 100% !important;
+}
+.menu-icon {
+  font-style: normal;
+  font-size: 20px;
+  padding-right: 8px;
+}
+
+.userLogo {
+  padding: 0px !important;
+  border-radius: 50% !important;
+  min-height: 50px !important;
+  min-width: 50px !important;
+  background-image: url(/asset/images/pic.png);
+  background-size: cover;
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
+}
+/*Personal Details*/
+.person_details  {
+  ul{
+    margin:20px 0px;
+  }
+  li{
+    line-height: 30px;
+    b {
+      min-width: 150px;
+      display: inline-block;
+    }
+  }
+}
+/*Credit Card Details*/
+.credit-card-container{
+  .credit-card{
+    width: 260px;
+    padding: 20px;
+    background: beige;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 1px 1px 13px rgba(0, 0, 0, 0.29);
+    margin: 20px auto;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    .card-bank{
+      text-align: left;
+    }
+    .card-holder-name{
+      font-size: 17px;
+    }
+    .card-number{
+      font-size: 16px;
+      letter-spacing: 3px;
+      padding: 10px 0px;
+      font-weight: 600;
+    }
+    .card-validity{
+        padding: 10px 0px;
+        & > span{
+          font-size: 11px;
+          max-width: 25px;
+          display: inline-block;
+          line-height: 10px;
+          vertical-align: middle;
+          font-weight: 600;
+          &:first-child{
+            margin-right: 10px;
+          }
+        }
+    }
+    .card-chip-img{
+      background-image: url($root-image-path + "/cc_chip.png");
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      top: 50%;
+      background-size: 54px;
+      background-position: -6px -5px;
+      border-radius: 5px;
+    }
+  }
+  & > button {
+    margin-left: 60px;
+  }
+}
