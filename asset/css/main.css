@@ -168,7 +168,9 @@ ul {
 @media (max-width: 960px) {
   .userLogo {
     min-height: 30px !important;
-    min-width: 30px !important; } }
+    min-width: 30px !important; }
+  .credit-card-container > button {
+    margin-left: auto !important; } }
 
 @keyframes fadeIn {
   from {

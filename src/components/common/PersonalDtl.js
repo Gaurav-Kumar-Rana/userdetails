@@ -163,7 +163,7 @@ class PersonalDtl extends React.Component {
         const btns = bodySettings.action_btns;
         return(
             <div className={classes.root}>
-                <h3 className={classes.heading}>Your personal details {this.state.edit?null:<Button variant="outlined" onClick={this.handleBtnClick} value="Edit" className={classes.editBtn}>Edit</Button>}</h3>
+                <h3 className={classes.heading}>Your personal details {this.state.edit?null:<Button variant="outlined" onClick={this.handleBtnClick} value="Edit" className={classes.editBtn + " editebtn"}>Edit</Button>}</h3>
                 <ul className={classes.personalDtls + " person_details"}>
                 
                     <li className="person_name">
@@ -219,10 +219,10 @@ class PersonalDtl extends React.Component {
                     <li className="person_phone">
                         {this.state.edit?
                         <FormControl error={this.state.error.person_address_phoneno} aria-describedby="Contact Number" required={true} fullWidth margin="normal">
-                            <InputLabel htmlFor="person_address_phoneno">Contact Number</InputLabel>
+                            <InputLabel htmlFor="person_address_phoneno">Phone</InputLabel>
                             <Input type="number" id="person_address_phoneno" value={personaltls.phoneno} onChange={this.handleChange} />
                             {this.state.error.person_address_phoneno?<FormHelperText dataerror="person_address_phoneno">Please provide your valid phone Number</FormHelperText>:null}
-                        </FormControl>:<InputLabel><b>Contact Number: </b>{personaltls.phoneno}</InputLabel>}
+                        </FormControl>:<InputLabel><b>Phone: </b>{personaltls.phoneno}</InputLabel>}
                     </li>
                     <li className="person_email">
                         {this.state.edit?

@@ -6,7 +6,10 @@
     "body_conatiner":{
         "profile_details":{
             "name":"Gaurav Rana",
-            "profile_title":"Front end Developer"
+            "profile_title":"Tax Payer"
         }
+    },
+    "string":{
+        "Your_Credit_Card_details":"Your Credit Card details"
     }
 }

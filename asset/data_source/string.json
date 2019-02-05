@@ -1,0 +1,10 @@
+{
+    "eng":{
+        "welcome_message":"Welcome to this site.",
+        "your_credit_card_details":"Your Credit Card details"
+    },
+    "hn":{
+        "welcome_message":"Welcome to this site.",
+        "your_credit_card_details":"Your Credit Card details"
+    }
+}

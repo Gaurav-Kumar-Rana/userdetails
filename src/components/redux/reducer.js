@@ -1,7 +1,10 @@
 import {
     FETCH_USER_PROFILE_BEGIN,
     FETCH_USER_PROFILE_SUCESS,
-    FETCH_USER_PROFILE_FAILURE
+    FETCH_USER_PROFILE_FAILURE,
+    FETCH_LANGUAGE_BEGIN,
+    FETCH_LANGUAGE_SUCESS,
+    FETCH_LANGUAGE_FAILURE
 } from './constant';
 
 const loadingProfile = {
@@ -28,10 +31,16 @@ const loadingProfile = {
     }
 };
 
+const loadingLang = {"loadingMsg":"xx..."};
+
 const initialState = {
     loadingdata:false,
     sucessdata:loadingProfile,
-    errordata:null
+    errordata:null,
+    loadinglangdata:false,
+    sucesslangdata:loadingLang,
+    errorlangdata:null
+
 };
 
 export const rootReducer = (state = initialState,action) =>{
@@ -55,6 +64,25 @@ export const rootReducer = (state = initialState,action) =>{
                 loadingdata:false,
                 errordata:action.payload,
                 sucessdata:loadingProfile
+            }
+        case FETCH_LANGUAGE_BEGIN :
+            return {
+                ...state,
+                loadinglangdata:true,
+                errorlangdata:null
+            };
+        case FETCH_LANGUAGE_SUCESS :
+            return{
+                ...state,
+                loadinglangdata:false,
+                sucesslangdata:action.payload
+            }
+        case FETCH_LANGUAGE_FAILURE :
+            return{
+                ...state,
+                loadinglangdata:false,
+                errorlangdata:action.payload,
+                sucesslangdata:loadingLang
             }
         default :
             return state;        

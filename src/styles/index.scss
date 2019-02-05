@@ -43,6 +43,23 @@ ul{list-style: none;padding:0}
     min-height: 30px !important;
     min-width: 30px !important;
   }
+  .credit-card-container > button{
+    margin-left: auto;
+    &:last-child{
+      margin-left: 10px;
+    }
+  }
+  .addnewbtn{
+    position: initial;
+    margin-top:20px;
+  }
+  .editebtn{
+    position: initial;
+  }
+  .person_details{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }

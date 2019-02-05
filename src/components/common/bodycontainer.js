@@ -7,7 +7,6 @@ import CreditCardDtls from "./creditCardDtls";
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-
 const style = theme => ({
     root:{
         flexGrow: 1,
@@ -31,7 +30,7 @@ const style = theme => ({
     briefchild:{
         display: "table-cell",
         verticalAlign:"middle",
-        paddingBottom: 200
+        paddingBottom: "14vh"
     },
     personaldtlsconatiner:{        
         [theme.breakpoints.down('sm')]: {
@@ -50,13 +49,16 @@ const style = theme => ({
 });
 class BodyContainer extends React.Component {
     render(){
-        const {classes, settings} = this.props;
+        const currentLanguage = "eng";
+        const {classes, settings, metalangdata} = this.props;
+        const languageData = metalangdata[currentLanguage];
         return(
+            typeof(languageData) != "undefined" ? 
             <main className={classes.root}>
                 <Typography id="welcome_container" component="div" className={classes.brief + " page-container"}>
                     <div className={classes.briefchild}>
                         <div className={classes.personaldtlsconatiner}>
-                            <h2>Welcome to this site.</h2>
+                            <h2>{metalangdata[currentLanguage].welcome_message}</h2>
                         </div>
                     </div>
                 </Typography>
@@ -74,12 +76,13 @@ class BodyContainer extends React.Component {
                         </div>
                     </div>
                 </Typography>
-            </main>
+            </main> : null
         )
     }
 };
 BodyContainer.propTypes = {
     classes: PropTypes.object.isRequired,
-    settings: PropTypes.object.isRequired
+    settings: PropTypes.object.isRequired,
+    metalangdata:PropTypes.object.isRequired
 };
 export default withStyles(style)(BodyContainer);
