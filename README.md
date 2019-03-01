@@ -1,6 +1,6 @@
 #Software requriments
 </br>
-1.Install latest version of Node.js - Download from <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>
+1.Install latest version of Node.js - Download from <a target="_blank" href="https://nodejs.org/en/">https://nodejs.org/en/</a>
 
 
 # Steps of setup the aplication
