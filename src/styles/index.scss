@@ -49,16 +49,22 @@ ul{list-style: none;padding:0}
       margin-left: 10px;
     }
   }
-  .addnewbtn{
-    position: initial;
-    margin-top:20px;
-  }
-  .editebtn{
-    position: initial;
-  }
   .person_details{
     padding-left: 10px;
     padding-right: 10px;
+  }
+}
+
+@media (max-width:420px) {
+  .addnewbtn{
+    position: initial;
+    margin-top:20px;
+    width: 70%;
+  }
+  .editebtn{
+    position: initial;
+    margin-top: 20px;
+    width: 70%;
   }
 }
 

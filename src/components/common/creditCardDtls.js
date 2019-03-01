@@ -41,6 +41,29 @@ const style = theme => ({
         width: "500px"
     }
 });
+const initErrorStatus = {
+    "person_bank_name":false,
+    "person_card_holder_name":false,
+    "person_card_no":false,
+    "person_exp_year":false,
+    "person_exp_month":false,
+    "person_ccv":false,
+    "add_person_bank_name":false,
+    "add_person_card_holder_name":false,
+    "add_person_card_no":false,
+    "add_person_exp_year":false,
+    "add_person_exp_month":false,
+    "add_person_ccv":false
+};
+const initNewCardData = {
+    "bank_name":"",
+    "card_holder_name":"",
+    "card_no":"",
+    "exp_year":"",
+    "exp_month":"",
+    "ccv":"",
+    "card_type":"visa"
+};
 class CreditCardDtls extends React.Component {
     constructor(props){
         super(props);
@@ -48,34 +71,16 @@ class CreditCardDtls extends React.Component {
             edit:false,
             cc_details:[
                 {"bank_name":"HDFC","card_holder_name":"Gaurav Rana","card_no":"4567879963214785","exp_year":2025,"exp_month":12,"ccv":"****","card_type":"visa"},
-                {"bank_name":"HDFC","card_holder_name":"Gaurav Rana","card_no":"1234567879963214785","exp_year":2028,"exp_month":10,"ccv":"****","card_type":"visa"}
+                //{"bank_name":"HDFC","card_holder_name":"Gaurav Rana","card_no":"1234567879963214785","exp_year":2028,"exp_month":10,"ccv":"****","card_type":"visa"}
             ],
             editecard:{},
-            error:{
-                "person_bank_name":false,
-                "person_card_holder_name":false,
-                "person_card_no":false,
-                "person_exp_year":false,
-                "person_exp_month":false,
-                "add_person_bank_name":false,
-                "add_person_card_holder_name":false,
-                "add_person_card_no":false,
-                "add_person_exp_year":false,
-                "add_person_exp_month":false
-            },
-            formValid:true,
+            error:{...initErrorStatus},
+            editFormValid:false,
+            addFormValid:false,
             dialogOpen:false,
             deleteItem:null,
             addcard:false,
-            newcardData:{
-                "bank_name":"",
-                "card_holder_name":"",
-                "card_no":"",
-                "exp_year":"",
-                "exp_month":"",
-                "ccv":"",
-                "card_type":"visa"
-            }
+            newcardData:{...initNewCardData}
         };
         this.handleBtnClick = this.handleBtnClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -92,7 +97,8 @@ class CreditCardDtls extends React.Component {
 
             case "Cancle" || "cancle":
                     this.setState({
-                        edit:false
+                        edit:false,
+                        error:{...initErrorStatus}
                     });
                   break;
             case "Edit" || "edit":
@@ -131,12 +137,15 @@ class CreditCardDtls extends React.Component {
             case "AddCancle" || "addcancle":
             this.setState({
                 addcard:false,
+                error:{...initErrorStatus},
+                newcardData:{...initNewCardData}
             });    
             break;
             case "AddSave" || "addsave":
             this.setState({
                 cc_details:[...this.state.cc_details,this.state.newcardData],
                 addcard:false,
+                newcardData:{...initNewCardData}
             });    
             break;
             default:
@@ -155,7 +164,7 @@ class CreditCardDtls extends React.Component {
                     _temdata[this.state.editecard].bank_name = _value;
                     this.setState({
                         cc_details:[..._temdata],
-                        error:(_value && _value.length > 3)?{...this.error,person_bank_name:false}:{...this.error,person_bank_name:true}
+                        error:(_value && _value.length > 3)?{...this.state.error,person_bank_name:false}:{...this.state.error,person_bank_name:true}
                     });
                   break;
 
@@ -164,7 +173,7 @@ class CreditCardDtls extends React.Component {
                     _temdata[this.state.editecard].card_holder_name = _value;
                     this.setState({
                         cc_details:[..._temdata],
-                        error:(_value && _value.length > 3)?{...this.error,person_card_holder_name:false}:{...this.error,person_card_holder_name:true}
+                        error:(_value && _value.length > 3)?{...this.state.error,person_card_holder_name:false}:{...this.state.error,person_card_holder_name:true}
                     });
                 break;
 
@@ -175,7 +184,7 @@ class CreditCardDtls extends React.Component {
                     if(Number(_value)){
                         this.setState({
                             cc_details:[..._temdata],
-                            error:(_value && _value.length > 11 && _value.length < 19)?{...this.error,person_card_no:false}:{...this.error,person_card_no:true}
+                            error:(_value == "" ||  (_value.length > 11 && _value.length < 19))?{...this.state.error,person_card_no:false}:{...this.state.error,person_card_no:true}
                         });
                     }
               break;
@@ -187,7 +196,7 @@ class CreditCardDtls extends React.Component {
                     if(eval(_value)<=eval(event.currentTarget.max) && eval(_value)>=eval(event.currentTarget.min)){
                         this.setState({
                             cc_details:[..._temdata],
-                            error:(_value && _value.length == 4)?{...this.error,person_exp_year:false}:{...this.error,person_exp_year:true}
+                            error:(_value && _value.length == 4)?{...this.state.error,person_exp_year:false}:{...this.state.error,person_exp_year:true}
                         });
                     }
 
@@ -200,7 +209,7 @@ class CreditCardDtls extends React.Component {
                     if(eval(_value)<=eval(event.currentTarget.max) && eval(_value)>=eval(event.currentTarget.min)){
                         this.setState({
                             cc_details:[..._temdata],
-                            error:(_value && _value.length <= 2)?{...this.error,person_exp_month:false}:{...this.error,person_exp_month:true}
+                            error:(_value && _value.length <= 2)?{...this.state.error,person_exp_month:false}:{...this.state.error,person_exp_month:true}
                         });
                     }
                 break;
@@ -209,7 +218,8 @@ class CreditCardDtls extends React.Component {
                     _temdata = [...this.state.cc_details];
                     _temdata[this.state.editecard].ccv = _value;
                     this.setState({
-                        cc_details:[..._temdata]
+                        cc_details:[..._temdata],
+                        error:(_value != "")?{...this.state.error,person_ccv:false}:{...this.state.error,person_ccv:true}
                     });
               break;
 
@@ -224,7 +234,7 @@ class CreditCardDtls extends React.Component {
                 _newtemdata.bank_name = _value;
                 this.setState({
                     newcardData:_newtemdata,
-                    error:(_value && _value.length > 3)?{...this.error,add_person_bank_name:false}:{...this.error,add_person_bank_name:true}
+                    error:(_value != "" && _value.length > 3)?{...this.state.error,add_person_bank_name:false}:{...this.state.error,add_person_bank_name:true}
                 });
             break;
             case "add_person_card_holder_name":
@@ -232,27 +242,27 @@ class CreditCardDtls extends React.Component {
                 _newtemdata.card_holder_name = _value;
                 this.setState({
                     newcardData:_newtemdata,
-                    error:(_value && _value.length > 3)?{...this.error,add_person_card_holder_name:false}:{...this.error,add_person_card_holder_name:true}
+                    error:(_value && _value.length > 3)?{...this.state.error,add_person_card_holder_name:false}:{...this.state.error,add_person_card_holder_name:true}
                 });
             break;
             case "add_person_card_no":
                 _newtemdata = this.state.newcardData;
                 _value = _value.split('-').join('');
                 _newtemdata.card_no = _value;
-                if(Number(_value)){
+                if(Number(_value) || _value == ""){
                     this.setState({
                         newcardData:_newtemdata,
-                        error:(_value && _value.length > 11 && _value.length < 19)?{...this.error,add_person_card_no:false}:{...this.error,add_person_card_no:true}
+                        error:(_value == "" ||  (_value.length > 11 && _value.length < 19))?{...this.state.error,add_person_card_no:false}:{...this.state.error,add_person_card_no:true}
                     });
                 }
             break;
             case "add_person_exp_year":
                 _newtemdata = this.state.newcardData;
                 _newtemdata.exp_year = _value;
-                if(eval(_value)<=eval(event.currentTarget.max) && eval(_value)>=eval(event.currentTarget.min)){
+                if(_value == "" || (eval(_value)<=eval(event.currentTarget.max) && eval(_value)>=eval(event.currentTarget.min))){
                     this.setState({
                         newcardData:_newtemdata,
-                        error:(_value && _value.length == 4)?{...this.error,add_person_exp_year:false}:{...this.error,add_person_exp_year:true}
+                        error:(_value && _value.length == 4)?{...this.state.error,add_person_exp_year:false}:{...this.state.error,add_person_exp_year:true}
                     });
                 }
             break;
@@ -260,10 +270,10 @@ class CreditCardDtls extends React.Component {
             case "add_person_exp_month":
                 _newtemdata = this.state.newcardData;
                 _newtemdata.exp_month = _value;
-                if(eval(_value)<=eval(event.currentTarget.max) && eval(_value)>=eval(event.currentTarget.min)){
+                if(_value == "" || (eval(_value)<=eval(event.currentTarget.max) && eval(_value)>=eval(event.currentTarget.min))){
                     this.setState({
                         newcardData:_newtemdata,
-                        error:(_value && _value.length <= 2)?{...this.error,add_person_exp_month:false}:{...this.error,add_person_exp_month:true}
+                        error:(_value && _value.length <= 2)?{...this.state.error,add_person_exp_month:false}:{...this.state.error,add_person_exp_month:true}
                     });
                 }
             break;
@@ -273,12 +283,12 @@ class CreditCardDtls extends React.Component {
                     _newtemdata.ccv = _value;
                     this.setState({
                         newcardData:_newtemdata,
+                        error:(_value != "")?{...this.state.error,add_person_ccv:false}:{...this.state.error,add_person_ccv:true}
                     });
               break;
 
             default:
         }
-        
     }
 
     formatCardNumber(cardnumber){
@@ -345,11 +355,16 @@ class CreditCardDtls extends React.Component {
                             </li>
                             <li>
                                 {
-                                    <TextField label="CCV" value={this.state.cc_details[this.state.editecard].ccv} required={true} fullWidth id="person_ccv" margin="normal" onChange={this.handleChange}/>
+                                    <FormControl error={this.state.error.person_ccv} aria-describedby="Expiry Month" required={true} fullWidth margin="normal">
+                                        <InputLabel htmlFor="person_ccv">CCV</InputLabel>
+                                        <Input type="text"   id="person_ccv" value={this.state.cc_details[this.state.editecard].ccv} onChange={this.handleChange} />
+                                        {this.state.error.person_ccv?<FormHelperText dataerror="person_ccv">Please provide valid ccv</FormHelperText>:null}
+                                    </FormControl>
                                 }
                             </li>
                         </ul>
                         {this.state.edit ? btns.map((btn,key)=>(btn.status?<Button key={key} variant={btn.variant} color={btn.type} className={classes.actionbtn} onClick={this.handleBtnClick} value={btn.name}>{btn.name}</Button>:null)):null}
+                        {/* disabled={btn.name == "Save" ? !this.state.editFormValid:false} */}
                     </div>
                     :
                     <div className={classes.root}>
@@ -382,8 +397,8 @@ class CreditCardDtls extends React.Component {
                         <DialogContentText>Are you sure you want to delete your <b>{this.state.cc_details[this.state.deleteItem].bank_name}</b> credit card of card number <b>{this.state.cc_details[this.state.deleteItem].card_no}</b> ?</DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="outlined" onClick={this.handleBtnClick} autoFocus value="CancelDelete">Disagree</Button>
-                        <Button variant="outlined" onClick={this.handleBtnClick} value="Delete">Agree</Button>
+                        <Button variant="contained" color="primary" onClick={this.handleBtnClick} value="Delete">Agree</Button>
+                        <Button variant="outlined" color="primary" onClick={this.handleBtnClick} autoFocus value="CancelDelete">Disagree</Button>
                     </DialogActions>
                     </Dialog>
                     : 
@@ -397,48 +412,54 @@ class CreditCardDtls extends React.Component {
                                 <li>
                                     <FormControl error={this.state.error.add_person_bank_name} aria-describedby="Bank Name" required={true} fullWidth margin="normal">
                                         <InputLabel htmlFor="add_person_bank_name">Bank Name</InputLabel>
-                                        <Input id="add_person_bank_name" value={this.state.newcardData.bank_name} onChange={this.handleChange} />
+                                        <Input id="add_person_bank_name" value={this.state.newcardData.bank_name} onChange={this.handleChange} onBlur={this.handleChange} />
                                         {this.state.error.person_bank_name?<FormHelperText dataerror="add_person_bank_name">Please provide bank name (Min 4 character.)</FormHelperText>:null}
                                     </FormControl>
                                 </li>
                                 <li>
                                     <FormControl error={this.state.error.add_person_card_holder_name} aria-describedby="Card Holder Name" required={true} fullWidth margin="normal">
                                         <InputLabel htmlFor="add_person_card_holder_name">Card Holder Name</InputLabel>
-                                        <Input id="add_person_card_holder_name" value={this.state.newcardData.card_holder_name} onChange={this.handleChange} />
+                                        <Input id="add_person_card_holder_name" value={this.state.newcardData.card_holder_name} onChange={this.handleChange} onBlur={this.handleChange} />
                                         {this.state.error.add_person_card_holder_name?<FormHelperText dataerror="add_person_card_holder_name">Please provide card holder name (Min 4 character.)</FormHelperText>:null}
                                     </FormControl>
                                 </li>
                                 <li>
                                     <FormControl error={this.state.error.add_person_card_no} aria-describedby="Crad Number" required={true} fullWidth margin="normal">
                                         <InputLabel htmlFor="add_person_card_no">Card Number</InputLabel>
-                                        <Input type="text"  id="add_person_card_no" value={this.formatCardNumber(this.state.newcardData.card_no)} onChange={this.handleChange} />
+                                        <Input type="text"  id="add_person_card_no" value={this.formatCardNumber(this.state.newcardData.card_no)} onChange={this.handleChange} onBlur={this.handleChange} />
                                         {this.state.error.add_person_card_no?<FormHelperText dataerror="add_person_card_no">Please provide valid card number</FormHelperText>:null}
                                     </FormControl>
                                 </li>
                                 <li>
                                     <FormControl error={this.state.error.add_person_exp_year} aria-describedby="Expiry Year" required={true} fullWidth margin="normal">
                                         <InputLabel htmlFor="add_person_exp_year">Exp Year</InputLabel>
-                                        <Input type="number" inputProps={{min:2018,max:2050}}  id="add_person_exp_year" value={this.state.newcardData.exp_year} onChange={this.handleChange}/>
+                                        <Input type="number" inputProps={{min:2018,max:2050}}  id="add_person_exp_year" value={this.state.newcardData.exp_year} onChange={this.handleChange} onBlur={this.handleChange}/>
                                         {this.state.error.add_person_exp_year?<FormHelperText dataerror="add_person_exp_year">Please valid expiry year</FormHelperText>:null}
                                     </FormControl>
                                 </li>
                                 <li>
                                     <FormControl error={this.state.error.add_person_exp_month} aria-describedby="Expiry Month" required={true} fullWidth margin="normal">
                                         <InputLabel htmlFor="add_person_exp_month">Exp Month</InputLabel>
-                                        <Input type="number" inputProps={{min:1,max:12}}   id="add_person_exp_month" value={this.state.newcardData.exp_month} onChange={this.handleChange} />
+                                        <Input type="number" inputProps={{min:1,max:12}}   id="add_person_exp_month" value={this.state.newcardData.exp_month} onChange={this.handleChange} onBlur={this.handleChange} />
                                         {this.state.error.add_person_exp_month?<FormHelperText dataerror="add_person_exp_month">Please provide valid expiry month</FormHelperText>:null}
                                     </FormControl>
                                 </li>
                                 <li>
                                     {
-                                        <TextField label="CCV" value={this.state.newcardData.ccv} required={true} fullWidth id="add_person_ccv" margin="normal" onChange={this.handleChange}/>
+
+                                        <FormControl error={this.state.error.add_person_ccv} aria-describedby="CCV" required={true} fullWidth margin="normal">
+                                            <InputLabel htmlFor="add_person_ccv">CCV</InputLabel>
+                                            <Input type="text"   id="add_person_ccv" value={this.state.newcardData.ccv} onChange={this.handleChange} onBlur={this.handleChange} />
+                                            {this.state.error.add_person_ccv?<FormHelperText dataerror="add_person_ccv">Please provide valid ccv</FormHelperText>:null}
+                                        </FormControl>
                                     }
                                 </li>
                             </ul>
                         </DialogContent>
                         <DialogActions>
-                            <Button variant="outlined" onClick={this.handleBtnClick} value="AddCancle">Cancel</Button>
-                            <Button variant="outlined" onClick={this.handleBtnClick} value="AddSave">Save</Button>
+                            <Button variant="contained" color="primary" onClick={this.handleBtnClick} value="AddSave">Save</Button>
+                            {/* disabled={!this.state.addFormValid} */}
+                            <Button variant="outlined" color="primary" onClick={this.handleBtnClick} value="AddCancle">Cancel</Button>
                         </DialogActions>
                     </Dialog>
                 }
